@@ -12,7 +12,7 @@ The author writes notes in Portuguese; code comments and the paper are in Englis
 - Manuscript figures are built by `run/figures/make_all.py`; intermediate results live in `data/derived/`.
 
 ## Paper / Overleaf
-- `paper/` is synced two-way with Overleaf project `6ad2cf866b34110796f43087` by
+- `paper/` is synced two-way with Overleaf project `6ad4df833716c9db1f4aabee` by
   `.github/workflows/overleaf-sync.yml` (script: `.github/scripts/overleaf_sync.sh`, state in
   `.github/overleaf-sync-state` — do not edit by hand).
 - To change the paper: edit `paper/` and push to `main`; the workflow pushes to Overleaf.
