@@ -9,8 +9,9 @@
 \usepackage{amsmath,amssymb}
 \usepackage{xcolor}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing,fit,backgrounds}
 \usepackage{hyperref}
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing,fit,backgrounds}
+
 
 % ---------------------------------------------------------------------
 % Colours used consistently in every figure (quantum/QPU = orange, classical = blue, FakeBerlin = aqua)
@@ -80,6 +81,9 @@
 %     classical surrogates [schreiber2023classical].
 %  6. Outline.
 
+
+
+\newpage
 % =====================================================================
 \section{Theoretical framework}\label{sec:theory}
 % =====================================================================
@@ -175,6 +179,10 @@ A training run of $K$ epochs therefore costs $K+2$ jobs and $\Ncol$ circuit eval
   \label{fig:schematic}
 \end{figure*}
 
+
+
+\newpage
+
 % =====================================================================
 \section{Methods}\label{sec:methods}
 % =====================================================================
@@ -192,6 +200,9 @@ The hardware experiment ran on \texttt{ibm\_berlin}, an IBM Nighthawk processor 
 
 As controls with the \emph{same} budget we (a) evaluated on \texttt{ibm\_berlin} (one prediction job) the network trained on FakeBerlin, and (b) trained the classical PINN with exactly the hardware protocol for $n=1,\dots,10$ and seeds 0--4 (50 runs). Since all randomness of the hardware training is in the measured values, which were recorded, the training is reproducible offline: feeding the recorded measurements into the same update reproduces the trained weights bit for bit (Appendix~\ref{app:hil_impl}). We use this replay to evaluate the network after every epoch.
 
+
+
+\newpage
 % =====================================================================
 \section{Results}\label{sec:results}
 % =====================================================================
@@ -210,7 +221,7 @@ As controls with the \emph{same} budget we (a) evaluated on \texttt{ibm\_berlin}
 
 \paragraph{Same protocol, long budget.} Figure~\ref{fig:sim} and Table~\ref{tab:sim} compare the two models over 5600 runs. At $T=0.1$ with $\Ncol=100$ both models reach the same median MSE, $\simeq7\times10^{-6}$ ($\epsilon_{L_2}\simeq0.4\%$) for $n\ge4$ [Fig.~\ref{fig:sim}(a)]; this level is set by the reference solution and is reached by the HQPINN for every $\Ncol\ge30$ (Appendix~\ref{app:extra}). With only $\Ncol=10$ points per step the median MSE of the HQPINN is lower than that of the classical PINN for every width, by a factor between 1.2 and 4.5, and its distribution over seeds is narrower [Fig.~\ref{fig:sim}(b)]. Neither model has failed runs at $T=0.1$ under this protocol (largest MSE $2.2\times10^{-3}$ for the classical PINN and $1.2\times10^{-3}$ for the HQPINN among 1400 runs each). The difference is more pronounced in convergence than in final accuracy: with $\Ncol=100$, 98\% of the HQPINN runs with $n\ge5$ reach the physical target, against 55\% of the classical ones, and for $n=10$ the median run stops after $7.1\times10^3$ steps against $1.6\times10^4$ [Fig.~\ref{fig:sim}(c)].
 
-At $T=1$ the advantage of the HQPINN extends to the final accuracy [Figs.~\ref{fig:sim}(d)--(f)]. Its median MSE is lower for every width and both values of $\Ncol$, by a factor of up to 14 for $\Ncol=100$; for $n=10$ it is $4.8\times10^{-5}$ ($\epsilon_{L_2}=3.3\%$) against $3.0\times10^{-4}$ (8.2\%), and 92\% of the runs reach the target against 34\%. The classical PINN improves non-monotonically with $n$, and its best median ($1.1\times10^{-4}$ at $n=9$, 430 parameters) is above that of the HQPINN for every $n\ge6$ (187 parameters and more) [Fig.~\ref{fig:extra}(c)]. Since the ideal quantum layer is a fixed cosine-product map (Remark~\ref{rem:parity}), these results show that a parameter-free, bounded and periodic middle block conditions the residual minimization better than a trainable bottleneck, in particular for the long horizon; they do not rely on any quantum effect. At the hardware budget [$T=0.1$, 110 epochs, $n=10$, seeds 0--4; Fig.~\ref{fig:ladder}], replacing $\tanh$ by $\sin$ in the classical middle block lowers the median $\epsilon_{L_2}$ from 31.1\% to 20.9\% (7.0--27.2\%) under the learning-rate schedule of the HQPINN (9.1\% for the noiseless HQPINN), and from 11.4\% to 10.6\% (8.7--12.5\%) under the best schedule of the classical model (Sec.~\ref{sec:discussion}): a periodic activation closes part of the gap at a common schedule and has little effect once the schedule is tuned. \TODO{repetir o controle com \texttt{seno=True} no protocolo longo ($T=1$), onde est\'a a vantagem.}
+At $T=1$ the advantage of the HQPINN extends to the final accuracy [Figs.~\ref{fig:sim}(d)--(f)]. Its median MSE is lower for every width and both values of $\Ncol$, by a factor of up to 14 for $\Ncol=100$; for $n=10$ it is $4.8\times10^{-5}$ ($\epsilon_{L_2}=3.3\%$) against $3.0\times10^{-4}$ (8.2\%), and 92\% of the runs reach the target against 34\%. The classical PINN improves non-monotonically with $n$, and its best median ($1.1\times10^{-4}$ at $n=9$, 430 parameters) is above that of the HQPINN for every $n\ge6$ (187 parameters and more) [Fig.~\ref{fig:extra}(c)]. Since the ideal quantum layer is a fixed cosine-product map (Remark~\ref{rem:parity}), these results show that a parameter-free, bounded and periodic middle block conditions the residual minimization better than a trainable bottleneck, in particular for the long horizon; they do not rely on any quantum effect. \TODO{controle cl\'assico com ativa\c{c}\~ao produto-de-cossenos / seno (\texttt{seno=True}) para isolar o efeito.}
 
 \begin{table}[b]
 \caption{\justifying Same-protocol simulations for $n=10$ (50 seeds): median MSE and relative $L_2$ error of $u(x,T)$, fraction of runs reaching the physical target, and median number of optimizer steps. Trainable parameters: 491 (classical), 271 (HQPINN).}
@@ -299,12 +310,14 @@ Figure~\ref{fig:device} quantifies how well the calibrated surrogate describes t
   \label{fig:device}
 \end{figure*}
 
+
+\newpage
 % =====================================================================
 \section{Discussion}\label{sec:discussion}
 % =====================================================================
 \TODO{Rascunho -- revisar.} Three points frame the results. First, the comparison in simulation is between two classical computations: the noiseless quantum layer is a fixed cosine-product map (Remark~\ref{rem:parity}), and its better conditioning of the residual minimization---higher success rate, half the optimizer steps, about half the parameters, and an up to 14-fold (6-fold for $n=10$) lower error at the long horizon---is an architectural effect. The quantum processor enters as the physical device that implements this map, and the question addressed by the hardware experiment is whether such a model can be \emph{trained} through a noisy device. Second, the answer is positive at the budget tested: with one job per epoch, without error mitigation, on 80 qubits, the network reaches an accuracy indistinguishable from that of the noiseless model trained with the same protocol. Proposition~\ref{prop:trig} is what makes this possible, since noise changes the coefficients of the layer but not its functional form, so a calibrated model of the device provides both the gradient and a noise-free interpolation across the finite-difference stencil. Third, the straight-through construction is generic: it applies to any circuit whose light cones are small enough for the $3^{|\mathcal C_q|}$ coefficients of Eq.~\eqref{eq:trigpoly} to be calibrated, which bounds the entangling depth to a few brickwork layers, and it is compatible with error mitigation schemes that are affine in the measured data (e.g., readout mitigation~\cite{vandenberg2022model}, Pauli twirling, linear zero-noise extrapolation~\cite{temme2017error}).
 
-\emph{Limitations.} The hardware results rest on one seed per training strategy, and that seed was the best of five on the emulator. The classical control at the hardware budget uses the learning-rate schedule selected for the HQPINN; a schedule tuned for the classical model would narrow the gap at that budget: for $n=10$, the best of ten schedules (the step decay of the HQPINN rescaled to $\eta_0$, or a cosine decay from $\eta_0$ to $\eta_0/10$, with $\eta_0\in\{1,3,10,30,100\}\times10^{-3}$), selected on the test error itself, is a cosine decay from $\eta_0=0.03$; it lowers the median $\epsilon_{L_2}$ from 31.1\% to 11.4\% (6.2--19.5\%, MSE $5.8\times10^{-3}$), against 9.1\% (3.9--15.1\%, $3.7\times10^{-3}$) for the noiseless HQPINN and 5.7\% for the run on \texttt{ibm\_berlin}. For $n=3$ the schedule of the HQPINN is already the best (13.7\%). The long-budget comparison uses a common protocol, not separately optimized hyperparameters. Finally, the stopping target and the error metric rely on a first-order finite-difference reference whose own error sets the $7\times10^{-6}$ floor.
+\emph{Limitations.} The hardware results rest on one seed per training strategy, and that seed was the best of five on the emulator. The classical control at the hardware budget uses the learning-rate schedule selected for the HQPINN; a schedule tuned for the classical model would narrow the gap at that budget \TODO{rodar varredura de LR para o controle cl\'assico}. The long-budget comparison uses a common protocol, not separately optimized hyperparameters. Finally, the stopping target and the error metric rely on a first-order finite-difference reference whose own error sets the $7\times10^{-6}$ floor.
 
 % =====================================================================
 \section{Conclusions}\label{sec:conclusions}
@@ -313,6 +326,9 @@ Figure~\ref{fig:device} quantifies how well the calibrated surrogate describes t
 % Outlook items: inverse problem (identification of nu, previous draft); chain-resolved surrogates;
 % error mitigation; deeper entangling layers (|C_q| <= 4D); larger n and harder PDEs; seismic inversion.
 
+
+
+\newpage
 \begin{acknowledgments}
 \TODO{Agradecimentos; acesso ao IBM Quantum (inst\^ancia PDE\_Europe); financiamento.}
 \end{acknowledgments}
