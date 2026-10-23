@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Local build of the manuscript (Overleaf builds main.tex directly).
+# Local build of paper/main.tex (Overleaf builds it directly).   bash run/paper_tools/build_paper.sh
 # --disable-installer: MiKTeX would otherwise stop and wait for a package-install prompt.
 set -u
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/../../paper"
 B="${MIKTEX_BIN:-/c/Users/Gubio/AppData/Local/Programs/MiKTeX/miktex/bin/x64}"
 latex() { timeout 300 "$B/pdflatex" --disable-installer -interaction=nonstopmode main.tex > /dev/null 2>&1; }
 latex

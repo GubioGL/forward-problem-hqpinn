@@ -11,7 +11,7 @@ manuscript/
   figures/*.pdf, *.png  figuras geradas pelos scripts
   scripts/              código das figuras (ver abaixo)
   cache/                resultados intermediários (replay do treino, simulações de mesmo orçamento)
-  build.sh              compilação local (MiKTeX); no Overleaf basta compilar main.tex
+  build.sh              compilação local (MiKTeX); agora em run/paper_tools/build_paper.sh
 ```
 
 **Overleaf:** envie `main.tex`, `references.bib`, `figures/schematic.tex` e `figures/*.pdf`

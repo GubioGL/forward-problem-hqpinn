@@ -9,8 +9,9 @@
 \usepackage{amsmath,amssymb}
 \usepackage{xcolor}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing,fit,backgrounds}
 \usepackage{hyperref}
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathreplacing,fit,backgrounds}
+
 
 % ---------------------------------------------------------------------
 % Colours used consistently in every figure (quantum/QPU = orange, classical = blue, FakeBerlin = aqua)
@@ -80,6 +81,9 @@
 %     classical surrogates [schreiber2023classical].
 %  6. Outline.
 
+
+
+\newpage
 % =====================================================================
 \section{Theoretical framework}\label{sec:theory}
 % =====================================================================
@@ -175,6 +179,10 @@ A training run of $K$ epochs therefore costs $K+2$ jobs and $\Ncol$ circuit eval
   \label{fig:schematic}
 \end{figure*}
 
+
+
+\newpage
+
 % =====================================================================
 \section{Methods}\label{sec:methods}
 % =====================================================================
@@ -192,6 +200,9 @@ The hardware experiment ran on \texttt{ibm\_berlin}, an IBM Nighthawk processor 
 
 As controls with the \emph{same} budget we (a) evaluated on \texttt{ibm\_berlin} (one prediction job) the network trained on FakeBerlin, and (b) trained the classical PINN with exactly the hardware protocol for $n=1,\dots,10$ and seeds 0--4 (50 runs). Since all randomness of the hardware training is in the measured values, which were recorded, the training is reproducible offline: feeding the recorded measurements into the same update reproduces the trained weights bit for bit (Appendix~\ref{app:hil_impl}). We use this replay to evaluate the network after every epoch.
 
+
+
+\newpage
 % =====================================================================
 \section{Results}\label{sec:results}
 % =====================================================================
@@ -299,6 +310,8 @@ Figure~\ref{fig:device} quantifies how well the calibrated surrogate describes t
   \label{fig:device}
 \end{figure*}
 
+
+\newpage
 % =====================================================================
 \section{Discussion}\label{sec:discussion}
 % =====================================================================
@@ -313,6 +326,9 @@ Figure~\ref{fig:device} quantifies how well the calibrated surrogate describes t
 % Outlook items: inverse problem (identification of nu, previous draft); chain-resolved surrogates;
 % error mitigation; deeper entangling layers (|C_q| <= 4D); larger n and harder PDEs; seismic inversion.
 
+
+
+\newpage
 \begin{acknowledgments}
 \TODO{Agradecimentos; acesso ao IBM Quantum (inst\^ancia PDE\_Europe); financiamento.}
 \end{acknowledgments}

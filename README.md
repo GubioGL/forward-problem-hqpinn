@@ -90,9 +90,12 @@ open *Settings → Secrets and variables → Actions → New repository secret*,
 paste the token. Tokens expire after one year; replace the secret then. The Overleaf project id is set
 in the workflow file.
 
-On the first run, if the Overleaf project already holds a different version of the paper, nothing is
-overwritten. The Overleaf version is saved on the branch `overleaf-initial` and the run asks you to
-choose: run the workflow again with `first_sync = github` or `overleaf`.
+On the first run, the GitHub version of `paper/` goes to Overleaf. The earlier Overleaf version is not
+lost: it stays in Overleaf's *History* (top right of the editor), where any version can be restored. To
+start from the Overleaf version instead, run the workflow once with `first_sync = overleaf`.
+
+`run/paper_tools/` has a local build script and a stand-alone preview of the schematic; they stay out
+of `paper/` so the Overleaf project only holds the manuscript.
 
 ## Data
 
